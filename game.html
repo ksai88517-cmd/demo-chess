@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>♔ Chess Game ♚</h1>
+
+        <div id="turnDisplay">White's Turn</div>
+
+<div class="theme-container">
+
+    <label for="themeSelect" class="theme-label">
+        ⚙ Theme
+    </label>
+
+    <select id="themeSelect">
+
+        <option value="classic">
+            ♟ Classic Wood
+        </option>
+
+        <option value="dark">
+            🌙 Dark Mode
+        </option>
+
+        <option value="blue">
+            🔵 Blue Tournament
+        </option>
+
+        <option value="green">
+            🟢 Green Tournament
+        </option>
+
+    </select>
+
+</div>
+
+    <div id="clockContainer">
+
+    <div class="clock-box">
+        White: <span id="whiteClock">10:00</span>
+    </div>
+
+    <div class="clock-box">
+        Black: <span id="blackClock">10:00</span>
+    </div>
+
+</div>
+
+    <button id="undoBtn"
+        onclick="undoMove()">
+    ↩ Undo Move
+    </button>
+
+    <div id="chessboard"></div>
+
+    <div id="historyPanel">
+
+        <h3>Move History</h3>
+
+        <ul id="historyList"></ul>
+
+        <div id="capturedPanel">
+
+    <h3>Captured Pieces</h3>
+
+    <div>
+        <strong>White Captured:</strong>
+        <div id="whiteCaptured"></div>
+    </div>
+
+    <br>
+
+    <div>
+        <strong>Black Captured:</strong>
+        <div id="blackCaptured"></div>
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+    </div>
+
+    <script src="JS/app.js"></script>
+
+    <div id="gameOverModal" class="modal">
+
+    <div class="modal-content">
+
+        <h1 id="resultTitle">🏆 Game Over</h1>
+
+        <p id="resultMessage"></p>
+
+        <div class="modal-buttons">
+
+            <button onclick="startNewGame()">
+                New Game
+            </button>
+
+            <button onclick="goHome()">
+                Home
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

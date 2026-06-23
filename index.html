@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chess Master</title>
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="CSS/home.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero">
+
+        <h1>♔ CHESS MASTER ♚</h1>
+
+        <p>
+            Challenge Players • Track Progress • Become a Grandmaster
+        </p>
+
+        <div class="menu">
+
+            <button onclick="login()">
+                Login
+            </button>
+
+            <button onclick="newLocalGame()">
+        ♟ New Local Game
+    </button>
+
+    <button onclick="newAIGame()">
+        🤖 New AI Game
+    </button>
+
+    <button onclick="continueGame()">
+        ▶ Continue Last Game
+    </button>
+
+    <button onclick="openScoreboard()">
+        📊 Scoreboard
+    </button>
+
+    <button onclick="openSettings()">
+        ⚙ Settings
+    </button>
+
+            <div id="colorModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Choose Your Side</h2>
+
+        <button onclick="startGame('white')">
+            Play as White ♔
+        </button>
+
+        <button onclick="startGame('black')">
+            Play as Black ♚
+        </button>
+
+        <button onclick="closeModal()">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="JS/home.js"></script>
+
+</body>
+</html>

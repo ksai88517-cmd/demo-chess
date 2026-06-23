@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scoreboard</title>
+    <link rel="stylesheet" href="CSS/pages.css">
+</head>
+<body>
+
+<div class="page-container">
+
+    <h1>📊 Scoreboard</h1>
+
+    <div class="card" id="stats"></div>
+
+    <button onclick="window.location.href='index.html'">
+        🏠 Home
+    </button>
+
+</div>
+
+<script>
+const stats =
+JSON.parse(
+    localStorage.getItem("stats")
+) || {
+
+    gamesPlayed:0,
+    wins:0,
+    losses:0,
+    draws:0
+
+};
+
+const winRate =
+stats.gamesPlayed
+? (
+    stats.wins /
+    stats.gamesPlayed
+  * 100
+).toFixed(1)
+: 0;
+
+document.getElementById("stats")
+.innerHTML = `
+
+<div class="stat">
+<span>Games Played</span>
+<span>${stats.gamesPlayed}</span>
+</div>
+
+<div class="stat">
+<span>Wins</span>
+<span>${stats.wins}</span>
+</div>
+
+<div class="stat">
+<span>Losses</span>
+<span>${stats.losses}</span>
+</div>
+
+<div class="stat">
+<span>Draws</span>
+<span>${stats.draws}</span>
+</div>
+
+<div class="stat">
+<span>Win Rate</span>
+<span>${winRate}%</span>
+</div>
+
+`;
+
+</script>
+
+</body>
+</html>
