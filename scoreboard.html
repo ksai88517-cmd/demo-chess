@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scoreboard</title>
     <link rel="stylesheet" href="CSS/pages.css">
 </head>
@@ -8,68 +10,71 @@
 
 <div class="page-container">
 
+    <div class="back-top">
+        <button class="back-btn" onclick="goBack()">
+            ⬅ Back
+        </button>
+    </div>
+
     <h1>📊 Scoreboard</h1>
 
     <div class="card" id="stats"></div>
 
-    <button onclick="window.location.href='index.html'">
-        🏠 Home
-    </button>
+    <div class="settings-actions">
+        <button onclick="window.location.href='index.html'">
+            🏠 Home
+        </button>
+    </div>
 
 </div>
+
+<script src="JS/common.js"></script>
 
 <script>
 const stats =
-JSON.parse(
-    localStorage.getItem("stats")
-) || {
-
-    gamesPlayed:0,
-    wins:0,
-    losses:0,
-    draws:0
-
-};
+    JSON.parse(
+        localStorage.getItem("stats")
+    ) || {
+        gamesPlayed:0,
+        wins:0,
+        losses:0,
+        draws:0
+    };
 
 const winRate =
-stats.gamesPlayed
-? (
-    stats.wins /
     stats.gamesPlayed
-  * 100
-).toFixed(1)
-: 0;
+    ? (
+        stats.wins /
+        stats.gamesPlayed * 100
+      ).toFixed(1)
+    : 0;
 
-document.getElementById("stats")
-.innerHTML = `
+document.getElementById("stats").innerHTML = `
+    <div class="stat">
+        <span>Games Played</span>
+        <span>${stats.gamesPlayed}</span>
+    </div>
 
-<div class="stat">
-<span>Games Played</span>
-<span>${stats.gamesPlayed}</span>
-</div>
+    <div class="stat">
+        <span>Wins</span>
+        <span>${stats.wins}</span>
+    </div>
 
-<div class="stat">
-<span>Wins</span>
-<span>${stats.wins}</span>
-</div>
+    <div class="stat">
+        <span>Losses</span>
+        <span>${stats.losses}</span>
+    </div>
 
-<div class="stat">
-<span>Losses</span>
-<span>${stats.losses}</span>
-</div>
+    <div class="stat">
+        <span>Draws</span>
+        <span>${stats.draws}</span>
+    </div>
 
-<div class="stat">
-<span>Draws</span>
-<span>${stats.draws}</span>
-</div>
-
-<div class="stat">
-<span>Win Rate</span>
-<span>${winRate}%</span>
-</div>
-
+    <div class="stat">
+        <span>Win Rate</span>
+        <span>${winRate}%</span>
+    </div>
 `;
-
 </script>
 
 </body>

@@ -64,8 +64,8 @@ function openSettings(){
 
 function historyPage(){
 
-    alert("Match History Coming Soon");
-
+    window.location.href =
+        "history.html";
 }
 
 function scoreboard(){

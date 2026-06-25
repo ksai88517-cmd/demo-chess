@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link rel="stylesheet" href="CSS/pages.css">
 </head>
@@ -8,48 +10,79 @@
 
 <div class="page-container">
 
+    <div class="back-top">
+        <button class="back-btn" onclick="goBack()">
+            ⬅ Back
+        </button>
+    </div>
+
     <h1>⚙ Settings</h1>
 
     <div class="card">
 
+        <!-- THEME -->
         <div class="setting-item">
-            <div class="setting-title">
-                🎨 Theme Settings
+            <div class="setting-title">🎨 Board Theme</div>
+            <div class="setting-desc">
+                Choose the board style used in the chess game.
             </div>
 
-            <div class="setting-desc">
-                Themes can be changed from the game screen.
-                Your selected theme is saved automatically.
-            </div>
+            <select id="themeSetting" class="settings-select">
+                <option value="classic">Classic Wood</option>
+                <option value="dark">Dark</option>
+                <option value="blue">Blue Tournament</option>
+                <option value="green">Green Tournament</option>
+            </select>
         </div>
 
+        <!-- VOLUME -->
         <div class="setting-item">
-            <div class="setting-title">
-                💾 Save System
+            <div class="setting-title">🔊 Sound Volume</div>
+            <div class="setting-desc">
+                Control move, capture, check, castle and game over sound volume.
             </div>
 
-            <div class="setting-desc">
-                Games are automatically saved after every move.
-            </div>
+            <input
+                type="range"
+                id="volumeSlider"
+                min="0"
+                max="1"
+                step="0.1"
+                value="1"
+                class="volume-slider"
+            >
+
+            <p id="volumeValue">100%</p>
         </div>
 
+        <!-- MUTE -->
         <div class="setting-item">
-            <div class="setting-title">
-                🤖 AI Mode
+            <div class="setting-title">🔇 Mute Sound</div>
+            <div class="setting-desc">
+                Disable all game sounds.
             </div>
 
-            <div class="setting-desc">
-                Start a new AI match from the Home page.
-            </div>
+            <label class="toggle-row">
+                <input type="checkbox" id="muteToggle">
+                <span>Mute all sounds</span>
+            </label>
         </div>
 
     </div>
 
-    <button onclick="window.location.href='index.html'">
-        🏠 Home
-    </button>
+    <div class="settings-actions">
+        <button id="saveSettingsBtn">
+            💾 Save Settings
+        </button>
+
+        <button onclick="window.location.href='index.html'">
+            🏠 Home
+        </button>
+    </div>
 
 </div>
 
+<script src="JS/common.js"></script>
+<script src="JS/settings.js"></script>
 </body>
 </html>

@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let gameStates = [];
 
+    let matchAlreadySaved = false;
+
     let whiteTime = 600;
     let blackTime = 600;
 
@@ -117,6 +119,7 @@ let legalMoves = [];
         highlightMoves();
     }
 
+
     function handleSquareClick(e){
 
         const row = parseInt(e.currentTarget.dataset.row);
@@ -162,32 +165,28 @@ if(
 
     if(isCheckmate(currentPlayer)){
 
-    setTimeout(() => {
+    updateStats("win");
 
-        alert(
-            "🏆 CHECKMATE " +
-            (
-                currentPlayer === "white"
-                ? "Black"
-                : "White"
-            ) +
-            " Wins!"
-        );
+    gameOver(
+        "🏆 CHECKMATE! " +
+        (
+            currentPlayer === "white"
+            ? "Black"
+            : "White"
+        ) +
+        " Wins!"
+    );
 
-    },100);
-
+    return;
 }
 
-else if(isStalemate(currentPlayer)){
+if(isStalemate(currentPlayer)){
 
-    setTimeout(() => {
+    updateStats("draw");
 
-        alert(
-            "STALEMATE! 🤝  Draw Game."
-        );
+    gameOver("🤝 Stalemate!");
 
-    },100);
-
+    return;
 }
 
 if(isKingInCheck(currentPlayer)){
@@ -671,6 +670,42 @@ default:
     );
 }
 
+function applySavedSettings(){
+
+    const savedTheme =
+        localStorage.getItem("theme") || "classic";
+
+    const savedVolume =
+        parseFloat(
+            localStorage.getItem("volume") ?? "1"
+        );
+
+    const isMuted =
+        localStorage.getItem("mute") === "true";
+
+    applyTheme(savedTheme);
+
+    setSoundVolume(savedVolume, isMuted);
+
+    const themeSelect =
+        document.getElementById("themeSelect");
+
+    if(themeSelect){
+        themeSelect.value = savedTheme;
+    }
+}
+
+function setSoundVolume(volume, muted){
+
+    const finalVolume =
+        muted ? 0 : volume;
+
+    moveSound.volume = finalVolume;
+    captureSound.volume = finalVolume;
+    checkSound.volume = finalVolume;
+    castleSound.volume = finalVolume;
+    gameOverSound.volume = finalVolume;
+}
 
 function loadGame(){
 
@@ -723,6 +758,11 @@ function showGameOver(title,message){
 function gameOver(message){
 
     clearInterval(clockInterval);
+
+    if(!matchAlreadySaved){
+        saveGameToHistory(message);
+        matchAlreadySaved = true;
+    }
 
     showGameOver("Game Over", message);
 
@@ -1966,6 +2006,45 @@ function updateStats(result){
 
 }
 
+function saveGameToHistory(resultText){
+
+    let history =
+        JSON.parse(
+            localStorage.getItem("gameHistory")
+        ) || [];
+
+    const historyEntry = {
+
+        result: resultText,
+
+        winner:
+            resultText.includes("Black Wins")
+            ? "Black"
+            : resultText.includes("White Wins")
+            ? "White"
+            : "Draw",
+
+        mode:
+            gameMode === "ai"
+            ? "AI Match"
+            : "Local Match",
+
+        movesPlayed:
+            moveHistory.length,
+
+        date:
+            new Date().toLocaleString()
+
+    };
+
+    history.unshift(historyEntry);
+
+    localStorage.setItem(
+        "gameHistory",
+        JSON.stringify(history)
+    );
+}
+
 //handlers and initialization
 
 
@@ -2001,26 +2080,27 @@ const selector =
         "themeSelect"
     );
 
-selector.addEventListener(
-    "change",
-    e => applyTheme(
-        e.target.value
-    )
-);
+selector.addEventListener("change", e => {
 
-const savedTheme =
-    localStorage.getItem(
-        "theme"
+    const selectedTheme = e.target.value;
+
+    applyTheme(selectedTheme);
+
+    localStorage.setItem(
+        "theme",
+        selectedTheme
     );
 
-if(savedTheme){
+});
 
-    applyTheme(savedTheme);
+applySavedSettings();
 
-    document.getElementById(
-        "themeSelect"
-    ).value =
-        savedTheme;
+
+    if(!loaded){
+
+    createBoard();
+    matchAlreadySaved = false;
+
 }
 
 });

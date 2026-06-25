@@ -90,22 +90,96 @@ button:hover{
     transform:translateY(-2px);
 }
 
-.setting-item{
-    background:#333;
+/* SETTINGS CONTROLS */
 
-    padding:15px;
-
+.settings-select{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    border:none;
     border-radius:10px;
+    background:#444;
+    color:white;
+    font-size:1rem;
+    outline:none;
+}
 
+.volume-slider{
+    width:100%;
+    margin-top:14px;
+    cursor:pointer;
+}
+
+#volumeValue{
+    margin-top:10px;
+    font-weight:bold;
+    color:#ffd700;
+}
+
+.toggle-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:14px;
+    font-size:1rem;
+}
+
+.toggle-row input{
+    transform:scale(1.2);
+    cursor:pointer;
+}
+
+.settings-actions{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* HISTORY PAGE */
+
+.history-item{
+    background:#333;
+    border-radius:12px;
+    padding:16px;
     margin-bottom:15px;
 }
 
-.setting-title{
-    font-weight:bold;
-    margin-bottom:8px;
+.history-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:12px;
+    flex-wrap:wrap;
 }
 
-.setting-desc{
-    opacity:.8;
-    line-height:1.5;
+.history-number{
+    font-weight:bold;
+    color:#ffd700;
+}
+
+.history-result{
+    font-weight:bold;
+    color:#fff;
+    background:#444;
+    padding:6px 12px;
+    border-radius:8px;
+}
+
+.history-details p{
+    margin:8px 0;
+    line-height:1.4;
+}
+
+.back-top{
+    display:flex;
+    justify-content:flex-start;
+    margin-bottom:15px;
+}
+
+.back-btn{
+    width:auto;
+    padding:10px 16px;
+    background:#444;
+    color:white;
 }
