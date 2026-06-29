@@ -2,21 +2,100 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const board = document.getElementById("chessboard");
 
-    const pieces = {
-        r:"♜",
-        n:"♞",
-        b:"♝",
-        q:"♛",
-        k:"♚",
-        p:"♟",
+    const pieceThemes = {
+        classic:{
 
-        R:"♖",
-        N:"♘",
-        B:"♗",
-        Q:"♕",
-        K:"♔",
-        P:"♙"
+    r:"♜",
+    n:"♞",
+    b:"♝",
+    q:"♛",
+    k:"♚",
+    p:"♟",
+
+    R:"♖",
+    N:"♘",
+    B:"♗",
+    Q:"♕",
+    K:"♔",
+    P:"♙"
+
+},
+
+bold:{
+
+    r:"🨂",
+    n:"♞",
+    b:"♝",
+    q:"♛",
+    k:"♚",
+    p:"♟",
+
+    R:"🨀",
+    N:"♘",
+    B:"♗",
+    Q:"♕",
+    K:"♔",
+    P:"♙"
+
+},
+
+outline:{
+
+    r:"♖",
+    n:"♘",
+    b:"♗",
+    q:"♕",
+    k:"♔",
+    p:"♙",
+
+    R:"♖",
+    N:"♘",
+    B:"♗",
+    Q:"♕",
+    K:"♔",
+    P:"♙"
+
+},
+
+filled:{
+
+    r:"♜",
+    n:"♞",
+    b:"♝",
+    q:"♛",
+    k:"♚",
+    p:"♟",
+
+    R:"♜",
+    N:"♞",
+    B:"♝",
+    Q:"♛",
+    K:"♚",
+    P:"♟"
+
+},
+
+medieval:{
+
+    r:"🏰",
+    n:"🐴",
+    b:"⛪",
+    q:"👸",
+    k:"🤴",
+    p:"🛡",
+
+    R:"🏰",
+    N:"🐎",
+    B:"⛪",
+    Q:"👸",
+    K:"🤴",
+    P:"🛡"
+
+}
     };
+
+    let pieces =
+pieceThemes.classic;
 
     const moveSound =
     new Audio("assets/sounds/move.mp3");
@@ -675,6 +754,17 @@ function applySavedSettings(){
     const savedTheme =
         localStorage.getItem("theme") || "classic";
 
+        const savedPieceTheme =
+    localStorage.getItem("pieceTheme") || "classic";
+
+        applyTheme(savedTheme);
+
+pieces =
+    pieceThemes[savedPieceTheme] ||
+    pieceThemes.classic;
+
+            createBoard();
+
     const savedVolume =
         parseFloat(
             localStorage.getItem("volume") ?? "1"
@@ -682,8 +772,6 @@ function applySavedSettings(){
 
     const isMuted =
         localStorage.getItem("mute") === "true";
-
-    applyTheme(savedTheme);
 
     setSoundVolume(savedVolume, isMuted);
 
@@ -728,6 +816,13 @@ function loadGame(){
     blackTime = data.blackTime || 600;
     gameMode = data.gameMode || "player";
     lastMove = data.lastMove || null;
+
+    const savedPieceTheme =
+    localStorage.getItem("pieceTheme") || "classic";
+
+pieces =
+    pieceThemes[savedPieceTheme] ||
+    pieceThemes.classic;
 
     createBoard();
     updateHistory();
@@ -2098,7 +2193,6 @@ applySavedSettings();
 
     if(!loaded){
 
-    createBoard();
     matchAlreadySaved = false;
 
 }

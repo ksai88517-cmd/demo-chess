@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    document.getElementById("pieceTheme").value =
+    localStorage.getItem("pieceTheme") || "classic";
+
     const themeSelect =
         document.getElementById("themeSetting");
 
@@ -25,35 +28,72 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedMute =
         localStorage.getItem("mute") === "true";
 
+    const savedSiteTheme =
+        localStorage.getItem("siteTheme") || "dark";
+
+    const siteTheme =
+        document.getElementById("siteTheme");
+
+        const pieceTheme =
+    document.getElementById("pieceTheme");
+
+    siteTheme.addEventListener("change", () => {
+
+    localStorage.setItem(
+        "siteTheme",
+        siteTheme.value
+    );
+
+    applySiteTheme();
+
+});
+
+    themeSelect.addEventListener("change", () => {
+
+    localStorage.setItem(
+        "theme",
+        themeSelect.value
+    );
+
+    pieceTheme.addEventListener("change", () => {
+
+    localStorage.setItem(
+        "pieceTheme",
+        pieceTheme.value
+    );
+
+});
+
+});
+
     themeSelect.value = savedTheme;
     volumeSlider.value = savedVolume;
     muteToggle.checked = savedMute;
+    siteTheme.value = savedSiteTheme;
+    pieceTheme.value =
+    localStorage.getItem("pieceTheme") || "classic";
 
     updateVolumeLabel(savedVolume);
 
     volumeSlider.addEventListener("input", () => {
-        updateVolumeLabel(volumeSlider.value);
-    });
 
-    saveBtn.addEventListener("click", () => {
+    updateVolumeLabel(volumeSlider.value);
 
-        localStorage.setItem(
-            "theme",
-            themeSelect.value
-        );
+    localStorage.setItem(
+        "volume",
+        volumeSlider.value
+    );
 
-        localStorage.setItem(
-            "volume",
-            volumeSlider.value
-        );
+});
 
-        localStorage.setItem(
-            "mute",
-            muteToggle.checked
-        );
+muteToggle.addEventListener("change", () => {
 
-        alert("Settings saved successfully!");
-    });
+    localStorage.setItem(
+        "mute",
+        muteToggle.checked
+    );
+
+});
 
     function updateVolumeLabel(value){
         volumeValue.textContent =
