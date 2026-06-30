@@ -198,6 +198,22 @@ let legalMoves = [];
         highlightMoves();
     }
 
+    window.addEventListener(
+    "pieceThemeChanged",
+    () => {
+
+        const savedPieceTheme =
+            localStorage.getItem("pieceTheme") || "classic";
+
+        pieces =
+            pieceThemes[savedPieceTheme] ||
+            pieceThemes.classic;
+
+        createBoard();
+
+    }
+);
+
 
     function handleSquareClick(e){
 
@@ -242,9 +258,33 @@ if(
 
 }
 
+// Achievement helper - centralizes all achievement checks
+ 
+
     if(isCheckmate(currentPlayer)){
 
     updateStats("win");
+
+    // Achievements: checkmate, first win, AI defeat, speed
+    if(typeof checkAchievements === "function"){
+        checkAchievements("checkmate");
+
+        // Winner is the player who just moved
+        const winner = currentPlayer === "white" ? "black" : "white";
+
+        // First win for any player
+        checkAchievements("firstWin");
+
+        // If playing vs AI and the human defeated the AI
+        if(gameMode === "ai" && winner !== aiColor){
+            checkAchievements("aiWin");
+        }
+
+        // Speed achievement: winner has more than 300 seconds remaining
+        if((winner === "white" && whiteTime > 300) || (winner === "black" && blackTime > 300)){
+            checkAchievements("speed");
+        }
+    }
 
     gameOver(
         "🏆 CHECKMATE! " +
@@ -262,6 +302,10 @@ if(
 if(isStalemate(currentPlayer)){
 
     updateStats("draw");
+
+    if(typeof checkAchievements === "function"){
+        checkAchievements("draw");
+    }
 
     gameOver("🤝 Stalemate!");
 
@@ -405,6 +449,10 @@ if(move?.enPassant){
         gameBoard[toRow - 1][toCol] = "";
 
     }
+    // Achievement: En Passant capture
+    if(typeof checkAchievements === "function"){
+        checkAchievements("enPassant");
+    }
 
 }
 
@@ -444,6 +492,7 @@ if(
     gameBoard[7][7] = "";
 
     castleSound.play();
+    if(typeof checkAchievements === "function") checkAchievements("castle");
 }
 
 // White queenside
@@ -461,6 +510,7 @@ if(
     gameBoard[7][0] = "";
 
     castleSound.play();
+    if(typeof checkAchievements === "function") checkAchievements("castle");
 }
 
 // Black kingside
@@ -477,6 +527,7 @@ if(
 
     gameBoard[0][7] = "";
     castleSound.play();
+    if(typeof checkAchievements === "function") checkAchievements("castle");
 }
 
 // Black queenside
@@ -493,6 +544,7 @@ if(
 
     gameBoard[0][0] = "";
     castleSound.play();
+    if(typeof checkAchievements === "function") checkAchievements("castle");
 }
 
     checkPromotion(
@@ -992,6 +1044,7 @@ function promotePawn(row,col,color){
         : piece.toLowerCase();
 
     createBoard();
+    if(typeof checkAchievements === "function") checkAchievements("promotion");
 }
 
     function highlightMoves(){
@@ -1776,6 +1829,19 @@ if(isCheckmate(currentPlayer)){
 
     updateStats("loss");
 
+    // Achievements: checkmate occurred
+    if(typeof checkAchievements === "function"){
+        checkAchievements("checkmate");
+
+        // Determine winner (the side that just moved)
+        const winner = currentPlayer === "white" ? "black" : "white";
+
+        // Speed achievement for winner
+        if((winner === "white" && whiteTime > 300) || (winner === "black" && blackTime > 300)){
+            checkAchievements("speed");
+        }
+    }
+
     gameOver(
         "🏆 CHECKMATE! " +
         (
@@ -1792,6 +1858,7 @@ if(isCheckmate(currentPlayer)){
 if(isStalemate(currentPlayer)){
 
     updateStats("draw");
+    if(typeof checkAchievements === "function") checkAchievements("draw");
 
     gameOver(
         "🤝 Stalemate!"
@@ -2099,7 +2166,19 @@ function updateStats(result){
         JSON.stringify(stats)
     );
 
+    // Achievements: first completed game and 100+ games
+    if(typeof checkAchievements === "function"){
+        if(stats.gamesPlayed === 1){
+            checkAchievements("firstGame");
+        }
+
+        if(stats.gamesPlayed >= 100){
+            checkAchievements("hundredGames");
+        }
+    }
+
 }
+
 
 function saveGameToHistory(resultText){
 
@@ -2187,6 +2266,11 @@ selector.addEventListener("change", e => {
     );
 
 });
+
+/* =========================================
+   ACHIEVEMENTS
+========================================= */
+
 
 applySavedSettings();
 

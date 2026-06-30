@@ -279,3 +279,175 @@ body.light-mode .stat{
     color:black;
 
 }
+/* ==========================================
+   ACHIEVEMENTS PAGE
+========================================== */
+
+#achievementContainer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+.achievement{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    background:var(--card);
+
+    border-radius:12px;
+
+    padding:18px;
+
+    transition:.3s;
+
+    border:2px solid transparent;
+
+}
+
+.achievement:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#ffd700;
+
+}
+
+.achievement-icon{
+
+    font-size:2.3rem;
+
+    width:60px;
+
+    text-align:center;
+
+}
+
+.achievement-info{
+
+    flex:1;
+
+}
+
+.achievement-title{
+
+    font-size:1.1rem;
+
+    font-weight:bold;
+
+    margin-bottom:6px;
+
+    color:var(--text);
+
+}
+
+.achievement-desc{
+
+    font-size:.95rem;
+
+    color:#bdbdbd;
+
+    line-height:1.4;
+
+}
+
+body.light-mode .achievement-desc{
+
+    color:#666;
+
+}
+
+.achievement-status{
+
+    font-weight:bold;
+
+    font-size:.95rem;
+
+}
+
+/* ---------- UNLOCKED ---------- */
+
+.achievement.unlocked{
+
+    border-color:#4CAF50;
+
+}
+
+.achievement.unlocked .achievement-status{
+
+    color:#4CAF50;
+
+}
+
+/* ---------- LOCKED ---------- */
+
+.achievement.locked{
+
+    opacity:.6;
+
+    filter:grayscale(100%);
+
+}
+
+.achievement.locked .achievement-status{
+
+    color:#ff5252;
+
+}
+
+/* ---------- PROGRESS CARD ---------- */
+
+#achievementCount,
+#achievementPercent{
+
+    font-weight:bold;
+
+    color:#ffd700;
+
+}
+
+/* ---------- RESET BUTTON ---------- */
+
+#resetAchievementsBtn{
+
+    background:#d32f2f;
+
+    color:white;
+
+}
+
+#resetAchievementsBtn:hover{
+
+    background:#b71c1c;
+
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:600px){
+
+    .achievement{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .achievement-icon{
+
+        width:auto;
+
+        font-size:3rem;
+
+    }
+
+}

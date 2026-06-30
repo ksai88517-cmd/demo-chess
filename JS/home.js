@@ -1,6 +1,16 @@
 function login(){
 
-    alert("Login Page Coming Soon");
+    if(window.loginManager && typeof window.loginManager.openLogin === 'function'){
+        window.loginManager.openLogin();
+        return;
+    }
+
+    if(typeof openLogin === 'function'){
+        openLogin();
+        return;
+    }
+
+    console.warn('Login functionality not available.');
 
 }
 
@@ -15,6 +25,12 @@ function newLocalGame(){
 
     window.location.href =
         "game.html";
+}
+
+function openAchievements(){
+
+    window.location.href = "achievements.html";
+
 }
 
 function newAIGame(){

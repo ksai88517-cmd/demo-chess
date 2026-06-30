@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements</title>
+
+    <link rel="stylesheet" href="CSS/pages.css">
+</head>
+<body>
+
+<div class="page-container">
+
+    <!-- Back Button -->
+
+    <div class="back-top">
+
+        <button
+            class="back-btn"
+            onclick="goBack()">
+
+            ⬅ Back
+
+        </button>
+
+    </div>
+
+    <!-- Title -->
+
+    <h1>
+        🏆 Achievements
+    </h1>
+
+    <!-- Progress -->
+
+    <div class="card">
+
+        <div class="stat">
+
+            <span>
+                Achievements Unlocked
+            </span>
+
+            <span id="achievementCount">
+
+                0 / 10
+
+            </span>
+
+        </div>
+
+        <div class="stat">
+
+            <span>
+                Completion
+            </span>
+
+            <span id="achievementPercent">
+
+                0%
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Achievement List -->
+
+    <div
+        class="card"
+        id="achievementContainer">
+
+        <p
+            style="
+            text-align:center;
+            color:#999;
+            ">
+
+            Loading achievements...
+
+        </p>
+
+    </div>
+
+    <!-- Bottom Buttons -->
+
+    <div class="settings-actions">
+
+        <button
+            id="resetAchievementsBtn">
+
+            🔄 Reset Achievements
+
+        </button>
+
+        <button
+            onclick="
+            window.location.href='index.html'
+            ">
+
+            🏠 Home
+
+        </button>
+
+    </div>
+
+</div>
+
+<script src="JS/common.js"></script>
+<script src="JS/login.js"></script>
+<script src="JS/achievementManager.js"></script>
+<script src="JS/achievements.js"></script>
+
+</body>
+</html>

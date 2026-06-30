@@ -1,10 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.getElementById("pieceTheme").value =
-    localStorage.getItem("pieceTheme") || "classic";
+    // =========================
+    // Elements
+    // =========================
+
+    const siteTheme =
+        document.getElementById("siteTheme");
 
     const themeSelect =
         document.getElementById("themeSetting");
+
+    const pieceTheme =
+        document.getElementById("pieceTheme");
 
     const volumeSlider =
         document.getElementById("volumeSlider");
@@ -15,12 +22,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const muteToggle =
         document.getElementById("muteToggle");
 
-    const saveBtn =
-        document.getElementById("saveSettingsBtn");
 
-    // Load saved settings
-    const savedTheme =
+    // =========================
+    // Load Saved Settings
+    // =========================
+
+    const savedSiteTheme =
+        localStorage.getItem("siteTheme") || "dark";
+
+    const savedBoardTheme =
         localStorage.getItem("theme") || "classic";
+
+    const savedPieceTheme =
+        localStorage.getItem("pieceTheme") || "classic";
 
     const savedVolume =
         localStorage.getItem("volume") ?? "1";
@@ -28,76 +42,109 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedMute =
         localStorage.getItem("mute") === "true";
 
-    const savedSiteTheme =
-        localStorage.getItem("siteTheme") || "dark";
 
-    const siteTheme =
-        document.getElementById("siteTheme");
+    // =========================
+    // Apply Saved Values
+    // =========================
 
-        const pieceTheme =
-    document.getElementById("pieceTheme");
-
-    siteTheme.addEventListener("change", () => {
-
-    localStorage.setItem(
-        "siteTheme",
-        siteTheme.value
-    );
-
-    applySiteTheme();
-
-});
-
-    themeSelect.addEventListener("change", () => {
-
-    localStorage.setItem(
-        "theme",
-        themeSelect.value
-    );
-
-    pieceTheme.addEventListener("change", () => {
-
-    localStorage.setItem(
-        "pieceTheme",
-        pieceTheme.value
-    );
-
-});
-
-});
-
-    themeSelect.value = savedTheme;
-    volumeSlider.value = savedVolume;
-    muteToggle.checked = savedMute;
     siteTheme.value = savedSiteTheme;
-    pieceTheme.value =
-    localStorage.getItem("pieceTheme") || "classic";
+
+    themeSelect.value = savedBoardTheme;
+
+    pieceTheme.value = savedPieceTheme;
+
+    volumeSlider.value = savedVolume;
+
+    muteToggle.checked = savedMute;
 
     updateVolumeLabel(savedVolume);
 
+
+    // =========================
+    // Site Theme
+    // =========================
+
+    siteTheme.addEventListener("change", () => {
+
+        localStorage.setItem(
+            "siteTheme",
+            siteTheme.value
+        );
+
+        applySiteTheme();
+
+    });
+
+
+    // =========================
+    // Board Theme
+    // =========================
+
+    themeSelect.addEventListener("change", () => {
+
+        localStorage.setItem(
+            "theme",
+            themeSelect.value
+        );
+
+    });
+
+
+    // =========================
+    // Piece Theme
+    // =========================
+
+    pieceTheme.addEventListener("change", () => {
+
+        localStorage.setItem(
+            "pieceTheme",
+            pieceTheme.value
+        );
+
+    });
+
+
+    // =========================
+    // Volume
+    // =========================
+
     volumeSlider.addEventListener("input", () => {
 
-    updateVolumeLabel(volumeSlider.value);
+        updateVolumeLabel(
+            volumeSlider.value
+        );
 
-    localStorage.setItem(
-        "volume",
-        volumeSlider.value
-    );
+        localStorage.setItem(
+            "volume",
+            volumeSlider.value
+        );
 
-});
+    });
 
-muteToggle.addEventListener("change", () => {
 
-    localStorage.setItem(
-        "mute",
-        muteToggle.checked
-    );
+    // =========================
+    // Mute
+    // =========================
 
-});
+    muteToggle.addEventListener("change", () => {
+
+        localStorage.setItem(
+            "mute",
+            muteToggle.checked
+        );
+
+    });
+
+
+    // =========================
+    // Helpers
+    // =========================
 
     function updateVolumeLabel(value){
+
         volumeValue.textContent =
             Math.round(value * 100) + "%";
+
     }
 
 });
